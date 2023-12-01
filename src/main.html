@@ -100,16 +100,9 @@
             makeMember();
         })
 
-        $("#secbtn").click(async function () {
-            window.open("./form.html", '_blank');
-            // $.ajax({
-            //     type:'get',
-            //     url:"http://127.0.0.1:3000/register",
-            //     dataType:'json',
-            //     success:(v)=>{
-            //         window.open(v)
-            //     }
-            // })
+        $("#secbtn").click(function () {
+            // window.open(__dirname+"./form.html", '_blank');
+            window.open("register", "a", "width=1000, height=800, left=1000, top=50")
         })
 
         $("#tribtn").click(async function () {
@@ -124,7 +117,9 @@
             console.log(row);
         });
 
-
+        function showPopup() { 
+            window.open("/register", "a", "width=400, height=300, left=100, top=50"); 
+        }
 
 
 
@@ -237,7 +232,7 @@
         </div> -->
     </div>
     <div class="savebtn">
-        <button id="secbtn" type="button" class="btn btn-outline-info">등록하기</button>
+        <button id="secbtn" type="button" class="btn btn-outline-info"">등록하기</button>
 
     </div>
 

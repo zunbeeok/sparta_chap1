@@ -27,9 +27,9 @@ app.get('',(req,res)=>{
     res.sendFile(__dirname+'/main.html');
 })
 
-// app.get('/register',(req,res)=>{
-//     res.sendFile(__dirname+'/form.html');
-// })
+app.get('/register',(req,res)=>{
+    res.sendFile(__dirname+'/form.html');
+})
 
 app.get('/member',(req, res)=>{
     // console.log(req.query)
