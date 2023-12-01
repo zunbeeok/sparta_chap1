@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이영팔</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle&family=Noto+Sans+KR&display=swap');
+
+        * {
+            font-family: 'Dongle', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .mytitle {
+            height: 200px;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            background-image: url('https://previews.123rf.com/images/monsitj/monsitj1705/monsitj170500071/78685147-%EB%94%94%EC%A7%80%ED%84%B8-%EC%BD%94%EB%93%9C-%EB%B2%88%ED%98%B8-%EC%B6%94%EC%83%81%EC%A0%81-%EC%9D%B8-%EB%B0%B0%EA%B2%BD-%EC%BD%94%EB%94%A9-%EA%B8%B0%EC%88%A0-%EB%B0%8F-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%96%B8%EC%96%B4%EB%A5%BC.jpg');
+            background-position: center;
+            background-size: cover;
+        }
+
+        .mybox {
+            width: 1000px;
+            margin: 20px auto 0px auto;
+            padding: 20px;
+            border: 1px solid blue;
+            border-radius: 5px;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .mybtn {
+            width: 100px;
+            margin-left: auto;
+        }
+
+        .mycards {
+            width: 1000px;
+            margin: 20px auto 20px auto;
+        }
+
+        .savebtn {
+            width: 300px;
+            margin: 20px auto 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body {
+            background-color: black;
+        }
+    </style>
+
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzEZ_ReCXEh_90-ptWchHb9SJs8RWEvhk",
+            authDomain: "spartaproject-1ecec.firebaseapp.com",
+            projectId: "spartaproject-1ecec",
+            storageBucket: "spartaproject-1ecec.appspot.com",
+            messagingSenderId: "313832348507",
+            appId: "1:313832348507:web:7ec5e6cc415a897c8f187e",
+            measurementId: "G-E7DHMQWS2X"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        $("#firstbtn").click(async function () {
+            $('#cards').toggle();
+            makeMember();
+        })
+
+        $("#secbtn").click(async function () {
+            window.open("./form.html", '_blank');
+            // $.ajax({
+            //     type:'get',
+            //     url:"http://127.0.0.1:3000/register",
+            //     dataType:'json',
+            //     success:(v)=>{
+            //         window.open(v)
+            //     }
+            // })
+        })
+
+        $("#tribtn").click(async function () {
+            window.open('카드상세페이지.html', '_blank');
+        })
+
+        $('#cards').hide();
+
+        let docs = await getDocs(collection(db, "database"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+            console.log(row);
+        });
+
+
+
+
+
+        function openCard(cardNumber) {
+
+            window.open('카드상세페이지.html?card=' + cardNumber, '_blank');
+        }
+
+        function makeMember(){
+            let result = $.ajax({
+                type:'get',
+                url:"http://127.0.0.1:3000/member",
+                dataType:'json',
+                success: function(list){
+                    // $()
+                    $(list).each((i,item)=>{
+                        // $('#cards').append(`<div onclick="window.open('http://127.0.0.1:3000/member?id=${item.id}')"> <div class = "card body"> <h5> ${item.name}</h5> <p>${item.mbti}</p>`)
+                            $('#cards').append(
+                                `<div class="col" button class="btn btn-outline-info" id="tribtn"></button>
+                                    <div class="card h-100" onclick="window.open('http://127.0.0.1:3000/member?id=${item.id}')">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/1372/1372643.png" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${item.name}</h5>
+                                            <p class="card-text">${item.mbti}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-body-secondary">링크</small>
+                                        </div>
+                                    </div>
+                                </div>`
+                            )
+                    })
+                }
+            },) // 회원등록 버튼 입력후 클릭시 DB로 전송
+            // console.log(result)
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="mytitle">
+
+        <h1> 에이영팔</h1>
+    </div>
+    <div class="mybox">
+        <h1>팀 소개</h1>
+        <h5> 칙칙한 남자들끼리 모여있는 에이영팔입니다. 저희는 비 전공자 2명과 전공자 1명으로 구성되어 있으며 팀원 모두가 이번 과제를 무사히 마칠 수 있게 노력하려고 합니다.</h5>
+
+    </div>
+
+    <div class="mybtn">
+        <button id="firstbtn" type="button" class="btn btn-outline-primary">멤버보기</button>
+    </div>
+
+
+
+
+    <div class="mycards" id="cards">
+        <!-- <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col" button class="btn btn-outline-info" id="tribtn"></button>
+
+                <div class="card h-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1372/1372643.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">MBTI</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">링크</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">MBTI</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">링크</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">MBTI</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">링크</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">MBTI</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">링크</small>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="savebtn">
+        <button id="secbtn" type="button" class="btn btn-outline-info">등록하기</button>
+
+    </div>
+
+
+</body>
+
+</html>
