@@ -66,6 +66,21 @@
             error:(v)=>{
                 console.log("에러탐")
                 console.log(v)
+                let item = v[0]
+                $('mytitle').append(
+                                `<div class="col" button class="btn btn-outline-info" id="tribtn"></button>
+                                    <div class="card h-100" onclick="window.open('http://127.0.0.1:3000/member?id=${item.id}')">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/1372/1372643.png" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${item.name}</h5>
+                                            <p class="card-text">${item.mbti}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-body-secondary">링크</small>
+                                        </div>
+                                    </div>
+                                </div>`
+                            )
             }
 
         })
@@ -77,6 +92,8 @@
             url:`http://127.0.0.1:3000/member?id=${id}`,
             dataType:'json'
         })
+
+        alert("탈퇴하였습니다.")
     })
 
     $('#edit').click(()=>{
@@ -89,7 +106,7 @@
 
 
 <body>
-    <div class="mytitle">
+    <div class="mytitle" id="mytitle">
 
 
     </div>

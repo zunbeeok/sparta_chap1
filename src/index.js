@@ -41,51 +41,51 @@ app.get('/member', (req, res) => {
             console.log(`id : ${id} 멤버 조회`)
             console.log(result)
             const info = result[0]
-            res.sendFile(__dirname + '/detail.html')
-            // res.send(
-            //     `
-            //     <div class="bigbox" style="width:1200px;margin:20px auto 0px auto; padding:20px"
+            // res.sendFile(__dirname + '/detail.html')
+            res.send(
+                `
+                <div class="bigbox" style="width:1200px;margin:20px auto 0px auto; padding:20px"
 
-            //                 <div class="mypostingbox" id="postingbox">
-            //                     <div class="row g-2">
-            //                         <div class="col-md">
-            //                             <div class="form-floating">
-            //                                 <div> 이름 </div> <div>${info.name}</div>
-            //                             </div>
-            //                         </div>
-            //                         <div class="col-md">
-            //                             <div class="row g-2">
-            //                                 <div class="col-md">
-            //                                     <div class="form-floating">
-            //                                         <div> MBTI </div> <div>${info.mbti}</div>
-            //                                     </div>
-            //                                 </div>
+                            <div class="mypostingbox" id="postingbox">
+                                <div class="row g-2">
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <div> 이름 </div> <div>${info.name}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="row g-2">
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <div> MBTI </div> <div>${info.mbti}</div>
+                                                </div>
+                                            </div>
 
-            //                             </div>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //                 <div class="form-floating mb-3">
-            //                     <div> 장점 </div> <div>${info.advantage}</div>
-            //                 </div>
-            //                 <div class="form-floating mb-3">
-            //                     <div> 소개 </div> <div>${info.introduction}</div>
-            //                 </div>
-            //                 <div class="form-floating mb-3">
-            //                     <div> 목표 </div> <div>${info.goal}</div>
-            //                 </div>
-            //                 <div class="form-floating mb-3">
-            //                     <div> 약속 </div> <div>${info.promise}</div>
-            //                 </div>
-            //                 <div class="form-floating mb-3">
-            //                     <div> GIT </div> <div>${info.git}</div>
-            //                 </div>
-            //                 <div class="mybtn">
-            //                     <button id="postingbtn" type="button" class="btn btn-primary">수정</button>
-            //                     <button type="button" class="btn btn-outline-primary" >삭제</button>
-            //                 </div>
-            //             </div>`
-            // )
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <div> 장점 </div> <div>${info.advantage}</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <div> 소개 </div> <div>${info.introduction}</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <div> 목표 </div> <div>${info.goal}</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <div> 약속 </div> <div>${info.promise}</div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <div> GIT </div> <div>${info.git}</div>
+                            </div>
+                            <div class="mybtn">
+                                <button id="postingbtn" type="button" class="btn btn-primary">수정</button>
+                                <button type="button" class="btn btn-outline-primary" >삭제</button>
+                            </div>
+                        </div>`
+            )
         })
     } else {
         connection.query(`SELECT * FROM member limit 100`, (err, result, fields) => {
